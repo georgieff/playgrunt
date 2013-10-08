@@ -3,6 +3,7 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
     uglify: {
       options: {
         banner: '/*! <%= pkg.jsFile %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -12,6 +13,7 @@ module.exports = function(grunt) {
         dest: '<%= pkg.projectPath %>/build/<%= pkg.jsFile %>.min.js'
       }
     }
+
   });
 
   // Load the plugin that provides the "uglify" task.
