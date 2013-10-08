@@ -1,3 +1,6 @@
+/*some comment
+asdasd
+*/
 var testFunction = function() {
   var tfThis = 0,
       tfFunction = 2,
@@ -5,4 +8,6 @@ var testFunction = function() {
       tfNothing = 8;
 
       return tfThis + tfFunction + tfDoes + tfNothing;
-}
+};
+
+testFunction();
