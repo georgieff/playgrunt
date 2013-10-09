@@ -1,9 +1,9 @@
 body {
-  color: #fff;
   height: 0;
+  color: #fff;
 }
 
-.test.test2 {
+.test .test2 {
   display: inline-block;
   width: 200px;
   box-sizing: border-box;
