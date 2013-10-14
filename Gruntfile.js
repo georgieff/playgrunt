@@ -10,15 +10,13 @@
           report: 'min'
         },
         makeatry: {
-          files: [
-          {
+          files: [{
           expand: true,                         // Enable dynamic expansion.
           cwd: '<%= pkg.projectPath %>/src/',   // Src matches are relative to this path.
           src: ['/*.js'],                       // Actual pattern(s) to match.
           dest: '<%= pkg.projectPath %>/build/',// Destination path prefix.
           ext: '.min.js',                       // Dest filepaths will have this extension.
-        },
-        ],
+        },],
       }
     },
 
@@ -40,29 +38,58 @@
       }
     },
 
+    connect: {
+      server: {
+        options: {
+          keepalive: true,
+          livereload: true,
+          port: 9001,
+          base: 'www'
+        }
+      }
+    },
+
+    concurrent: {
+        jobs: ['uglify' ,'connect'],
+        options: {
+          logConcurrentOutput: true
+        }
+    },
+
     watch: {
       options: {
-        atBegin: true,
+        //atBegin: true,
       },
       scripts: {
-       tasks: ['jshint', 'uglify'],
-       files: ['<%= pkg.projectPath %>/src/**/*.js'],
-     },
-   }
+        tasks: ['jshint', 'uglify'],
+        files: ['<%= pkg.projectPath %>/src/**/*.js'],
+      },
+      page: {
+        tasks: [''],
+        files: ['www/*.*']
+      }
+    }
 
- });
+  });
 
     // Load the plugins.
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-csslint');
+    grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-concurrent');
 
     // Default task(s).
-    grunt.registerTask('default', ['watch']);
+    grunt.registerTask('default', ['concurrent']);
+
+    grunt.registerTask('server', ['connect']);
+    grunt.registerTask('watch', ['watch']);
 
     grunt.event.on('watch', function(action, filepath, target) {
-      //grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
+      if (target == 'page') {
+        grunt.log.writeln('Well, ' + target + ': ' + filepath + ' has ' + action);
+      };
     });
 
   };
